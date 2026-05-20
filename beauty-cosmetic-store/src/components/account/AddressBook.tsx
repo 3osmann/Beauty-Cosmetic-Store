@@ -261,7 +261,7 @@ export function AddressBook({ addresses = MOCK_ADDRESSES }: AddressBookProps) {
               <label className="flex items-center gap-2 cursor-pointer">
                 <Checkbox
                   checked={formData.isDefault}
-                  onCheckedChange={(v) => setFormData({ ...formData, isDefault: !!v })}
+                  onChange={(e) => setFormData({ ...formData, isDefault: e.target.checked })}
                 />
                 <span className="text-sm text-gray-700">Set as default address</span>
               </label>

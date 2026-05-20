@@ -23,7 +23,7 @@ const STATS: StatCardData[] = [
 
 function useCountUp(target: number, duration: number = 2, start: boolean = true) {
   const [count, setCount] = useState(0)
-  const frameRef = useRef<number>()
+  const frameRef = useRef<number>(0)
 
   useEffect(() => {
     if (!start) return

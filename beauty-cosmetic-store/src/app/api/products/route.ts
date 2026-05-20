@@ -25,7 +25,7 @@ export async function GET(request: Request) {
   
   if (sort === "price-asc") filtered.sort((a, b) => a.price - b.price)
   else if (sort === "price-desc") filtered.sort((a, b) => b.price - a.price)
-  else if (sort === "newest") filtered.sort((a, b) => b.id - a.id)
+  else if (sort === "newest") filtered.sort((a, b) => parseInt(b.id) - parseInt(a.id))
   else if (sort === "rating") filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0))
   
   const total = filtered.length
