@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-import { Facebook, Twitter, Pinterest, Link2, Mail, Check } from "lucide-react"
+import { Facebook, Twitter, ExternalLink, Link2, Mail, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface ShareButtonsProps {
@@ -35,7 +35,7 @@ export function ShareButtons({ productName, productSlug }: ShareButtonsProps) {
     {
       name: "Pinterest",
       href: `https://pinterest.com/pin/create/button/?url=${encodedUrl}&description=${encodedName}`,
-      icon: Pinterest,
+      icon: ExternalLink,
       color: "hover:text-[#E60023]",
     },
     {

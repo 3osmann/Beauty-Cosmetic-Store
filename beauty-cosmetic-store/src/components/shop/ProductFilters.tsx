@@ -82,11 +82,11 @@ export function ProductFilters({ categories, brands = [], onFilterChange }: Prod
   }
 
   const toggleArrayFilter = (key: "categories" | "brands" | "ratings", value: string | number) => {
-    const current = filters[key]
-    const next = current.includes(value as never)
+    const current = filters[key] as (string | number)[]
+    const next = current.includes(value)
       ? current.filter((v) => v !== value)
-      : [...current, value as never]
-    updateFilter(key, next)
+      : [...current, value]
+    updateFilter(key, next as any)
   }
 
   const clearAll = () => {
