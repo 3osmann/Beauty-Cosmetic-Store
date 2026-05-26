@@ -33,7 +33,7 @@ export function Navbar() {
     <>
       <header
         className={cn(
-          "sticky top-0 z-50 w-full transition-all duration-300",
+          "sticky top-0 z-50 w-full transition-all duration-300 border-b-0 shadow-none",
           isScrolled
             ? "bg-white/80 backdrop-blur-xl"
             : "bg-white"
@@ -52,11 +52,11 @@ export function Navbar() {
             {SITE_NAME}
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-1 flex-nowrap">
             {NAV_LINKS.map((link) => (
               <div
                 key={link.href}
-                className="relative"
+                className="relative whitespace-nowrap"
                 onMouseEnter={() => {
                   if (link.label === "Categories" || link.label === "Shop") {
                     setActiveMega(link.label)
@@ -67,7 +67,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors",
+                    "flex items-center gap-1 px-2.5 py-2 text-sm font-medium rounded-lg transition-colors",
                     "hover:text-[#B76E79]"
                   )}
                 >
