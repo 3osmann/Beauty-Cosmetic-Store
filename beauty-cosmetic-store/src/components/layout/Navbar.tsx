@@ -35,8 +35,8 @@ export function Navbar() {
         className={cn(
           "sticky top-0 z-50 w-full transition-all duration-300",
           isScrolled
-            ? "bg-white/80 backdrop-blur-xl shadow-sm border-b border-black/5"
-            : "bg-white border-b border-black/5"
+            ? "bg-white/80 backdrop-blur-xl"
+            : "bg-white"
         )}
       >
         <div className="container mx-auto flex items-center justify-between h-16 px-4">
@@ -177,7 +177,6 @@ export function Navbar() {
                       >
                         Register
                       </Link>
-                      <hr className="my-1 border-black/5" />
                       <Link
                         href="/account"
                         className="block px-3 py-2 text-sm rounded-lg hover:bg-zinc-50 transition-colors"
