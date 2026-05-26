@@ -235,19 +235,21 @@ export function Footer() {
             &copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
             Crafted with care for beauty enthusiasts.
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col items-center gap-2">
             <span className="text-xs text-zinc-600">We accept</span>
-            {["Visa", "Mastercard", "PayPal", "Amex", "Stripe"].map((name) => (
-              <div
-                key={name}
-                className="h-8 w-12 rounded-lg bg-zinc-800 flex items-center justify-center border border-zinc-700/50"
-                title={name}
-              >
-                <span className="text-[7px] font-bold text-zinc-400 uppercase tracking-wider">
-                  {name}
-                </span>
-              </div>
-            ))}
+            <div className="flex flex-wrap justify-center gap-2">
+              {["Visa", "Mastercard", "PayPal", "Amex", "Stripe"].map((name) => (
+                <div
+                  key={name}
+                  className="h-8 w-12 rounded-lg bg-zinc-800 flex items-center justify-center border border-zinc-700/50"
+                  title={name}
+                >
+                  <span className="text-[7px] font-bold text-zinc-400 uppercase tracking-wider">
+                    {name}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
