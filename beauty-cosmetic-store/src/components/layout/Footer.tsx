@@ -1,11 +1,17 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
-import { Facebook, Instagram, Twitter, Youtube, Phone, Mail, MapPin, ChevronRight } from "lucide-react"
+import { motion } from "framer-motion"
+import {
+  Facebook, Instagram, Twitter, Youtube,
+  Phone, Mail, MapPin, ArrowRight, Send,
+  Heart, Sparkles, ShieldCheck, Truck, RotateCcw
+} from "lucide-react"
 import { SITE_NAME } from "@/lib/constants"
 
 const footerLinks = {
-  topCategories: [
+  shop: [
     { label: "Makeup", href: "/shop?category=makeup" },
     { label: "Skincare", href: "/shop?category=skin-care" },
     { label: "Hair Care", href: "/shop?category=hair-care" },
@@ -21,7 +27,7 @@ const footerLinks = {
     { label: "Terms & Conditions", href: "/terms" },
     { label: "Privacy Policy", href: "/privacy" },
   ],
-  helpCenter: [
+  help: [
     { label: "Customer Service", href: "/contact" },
     { label: "Returns & Exchanges", href: "/returns" },
     { label: "Shipping Info", href: "/shipping" },
@@ -29,41 +35,99 @@ const footerLinks = {
     { label: "Track Order", href: "/track-order" },
     { label: "Size Guide", href: "/size-guide" },
   ],
-  partner: [
-    { label: "Become a Partner", href: "/partner" },
-    { label: "Wholesale", href: "/wholesale" },
-    { label: "Influencer Program", href: "/influencer" },
-    { label: "Brand Collaboration", href: "/collaboration" },
-    { label: "Supplier Information", href: "/supplier" },
-  ],
 }
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Youtube, href: "#", label: "Youtube" },
+  { icon: Facebook, href: "#", label: "Facebook", color: "hover:text-[#1877F2]" },
+  { icon: Instagram, href: "#", label: "Instagram", color: "hover:text-[#E4405F]" },
+  { icon: Twitter, href: "#", label: "Twitter", color: "hover:text-[#1DA1F2]" },
+  { icon: Youtube, href: "#", label: "Youtube", color: "hover:text-[#FF0000]" },
 ]
 
-const paymentIcons = [
-  { name: "Visa", src: "/images/payments/visa.svg" },
-  { name: "Mastercard", src: "/images/payments/mastercard.svg" },
-  { name: "PayPal", src: "/images/payments/paypal.svg" },
-  { name: "Amex", src: "/images/payments/amex.svg" },
-  { name: "Stripe", src: "/images/payments/stripe.svg" },
+const features = [
+  { icon: Truck, label: "Free Shipping", desc: "On orders over $50" },
+  { icon: RotateCcw, label: "Free Returns", desc: "Within 30 days" },
+  { icon: ShieldCheck, label: "Secure Payment", desc: "100% protected" },
+  { icon: Heart, label: "24/7 Support", desc: "Dedicated service" },
 ]
 
 export function Footer() {
+  const [email, setEmail] = useState("")
+
+  const handleNewsletter = (e: React.FormEvent) => {
+    e.preventDefault()
+    // TODO: integrate newsletter API
+    setEmail("")
+  }
+
   return (
-    <footer className="bg-[#1A1A1A] text-zinc-400">
-      <div className="container mx-auto px-4 py-16">
+    <footer className="bg-[#1A1A1A]">
+      {/* Features Bar */}
+      <div className="border-b border-zinc-800">
+        <div className="container mx-auto px-4 py-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {features.map(({ icon: Icon, label, desc }) => (
+              <div key={label} className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-full bg-[#B76E79]/10 flex items-center justify-center shrink-0">
+                  <Icon className="h-5 w-5 text-[#B76E79]" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white">{label}</p>
+                  <p className="text-xs text-zinc-500">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Newsletter */}
+      <div className="border-b border-zinc-800">
+        <div className="container mx-auto px-4 py-12">
+          <div className="max-w-2xl mx-auto text-center">
+            <Sparkles className="h-6 w-6 text-[#B76E79] mx-auto mb-3" />
+            <h3 className="text-2xl font-bold text-white mb-2">
+              Join Our Beauty Community
+            </h3>
+            <p className="text-zinc-500 text-sm mb-6">
+              Subscribe for exclusive offers, beauty tips, and new arrivals
+            </p>
+            <form onSubmit={handleNewsletter} className="flex gap-2 max-w-md mx-auto">
+              <div className="relative flex-1">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                  className="w-full pl-10 pr-4 py-3 bg-zinc-800 border border-zinc-700 rounded-xl text-white text-sm placeholder:text-zinc-500 focus:outline-none focus:ring-2 focus:ring-[#B76E79]/40 focus:border-[#B76E79] transition-all"
+                />
+              </div>
+              <motion.button
+                type="submit"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-6 py-3 bg-[#B76E79] text-white rounded-xl font-medium text-sm flex items-center gap-2 hover:bg-[#A45A65] transition-colors shrink-0"
+              >
+                Subscribe
+                <Send className="h-4 w-4" />
+              </motion.button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Links */}
+      <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="text-2xl font-bold text-white tracking-tight">
+          {/* Brand Column */}
+          <div className="sm:col-span-2 lg:col-span-2">
+            <Link href="/" className="text-2xl font-bold text-white tracking-tight font-serif">
               {SITE_NAME}
             </Link>
-            <p className="mt-4 text-sm leading-relaxed text-zinc-500 max-w-xs">
-              Discover luxury beauty products, premium skincare, and professional-grade cosmetics. 
+            <p className="mt-4 text-sm leading-relaxed text-zinc-500 max-w-sm">
+              Discover luxury beauty products, premium skincare, and professional-grade cosmetics.
               Your journey to timeless beauty starts here.
             </p>
             <div className="mt-6 space-y-3">
@@ -73,43 +137,50 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Phone className="h-4 w-4 text-[#B76E79] shrink-0" />
-                <a href="tel:+1234567890" className="hover:text-[#B76E79] transition-colors text-zinc-500">
+                <a
+                  href="tel:+1234567890"
+                  className="text-zinc-500 hover:text-[#B76E79] transition-colors"
+                >
                   (025) 3686 25 16
                 </a>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 <Mail className="h-4 w-4 text-[#B76E79] shrink-0" />
-                <a href="mailto:hello@beaute.com" className="hover:text-[#B76E79] transition-colors text-zinc-500">
+                <a
+                  href="mailto:hello@beaute.com"
+                  className="text-zinc-500 hover:text-[#B76E79] transition-colors"
+                >
                   hello@beaute.com
                 </a>
               </div>
             </div>
-            <div className="mt-6 flex items-center gap-3">
-              {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a
+            <div className="mt-6 flex items-center gap-2">
+              {socialLinks.map(({ icon: Icon, href, label, color }) => (
+                <motion.a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="h-9 w-9 rounded-full border border-zinc-700 flex items-center justify-center hover:border-[#B76E79] hover:text-[#B76E79] transition-all duration-300"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  className={`h-9 w-9 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 ${color} transition-all duration-300`}
                 >
                   <Icon className="h-4 w-4" />
-                </a>
+                </motion.a>
               ))}
             </div>
           </div>
 
+          {/* Shop */}
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
-              Top Categories
+            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-[0.15em] mb-5">
+              Shop
             </h3>
             <ul className="space-y-3">
-              {footerLinks.topCategories.map((link) => (
+              {footerLinks.shop.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm flex items-center gap-1 group transition-colors hover:text-[#B76E79]"
+                    className="text-sm text-zinc-500 hover:text-white transition-colors duration-200"
                   >
-                    <ChevronRight className="h-3 w-3 text-[#B76E79] opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
                     {link.label}
                   </Link>
                 </li>
@@ -117,8 +188,9 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Company */}
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
+            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-[0.15em] mb-5">
               Company
             </h3>
             <ul className="space-y-3">
@@ -126,9 +198,8 @@ export function Footer() {
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm flex items-center gap-1 group transition-colors hover:text-[#B76E79]"
+                    className="text-sm text-zinc-500 hover:text-white transition-colors duration-200"
                   >
-                    <ChevronRight className="h-3 w-3 text-[#B76E79] opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
                     {link.label}
                   </Link>
                 </li>
@@ -136,37 +207,18 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* Help */}
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
-              Help Center
+            <h3 className="text-xs font-semibold text-zinc-400 uppercase tracking-[0.15em] mb-5">
+              Help
             </h3>
             <ul className="space-y-3">
-              {footerLinks.helpCenter.map((link) => (
+              {footerLinks.help.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm flex items-center gap-1 group transition-colors hover:text-[#B76E79]"
+                    className="text-sm text-zinc-500 hover:text-white transition-colors duration-200"
                   >
-                    <ChevronRight className="h-3 w-3 text-[#B76E79] opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-5">
-              Partner
-            </h3>
-            <ul className="space-y-3">
-              {footerLinks.partner.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm flex items-center gap-1 group transition-colors hover:text-[#B76E79]"
-                  >
-                    <ChevronRight className="h-3 w-3 text-[#B76E79] opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all duration-200" />
                     {link.label}
                   </Link>
                 </li>
@@ -176,21 +228,23 @@ export function Footer() {
         </div>
       </div>
 
+      {/* Bottom Bar */}
       <div className="border-t border-zinc-800">
         <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-zinc-600">
             &copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
+            Crafted with care for beauty enthusiasts.
           </p>
           <div className="flex items-center gap-3">
-            <span className="text-xs text-zinc-600 mr-1">We accept</span>
-            {paymentIcons.map((payment) => (
+            <span className="text-xs text-zinc-600">We accept</span>
+            {["Visa", "Mastercard", "PayPal", "Amex", "Stripe"].map((name) => (
               <div
-                key={payment.name}
-                className="h-7 w-11 rounded bg-zinc-800 flex items-center justify-center px-1"
-                title={payment.name}
+                key={name}
+                className="h-8 w-12 rounded-lg bg-zinc-800 flex items-center justify-center border border-zinc-700/50"
+                title={name}
               >
-                <span className="text-[8px] font-bold text-zinc-400 uppercase tracking-wider">
-                  {payment.name}
+                <span className="text-[7px] font-bold text-zinc-400 uppercase tracking-wider">
+                  {name}
                 </span>
               </div>
             ))}
